@@ -1,14 +1,13 @@
 import React from "react";
+import { FiSun, FiMoon } from "react-icons/fi";
 
 const DarkModeToggle = ({ darkMode, toggleDarkMode }) => {
   return (
     <button
-      className={`p-2 rounded-full ${
-        darkMode ? "bg-gray-300 text-gray-800" : "bg-gray-800 text-gray-300"
-      } hover:bg-gray-400 hover:text-gray-900 transition duration-300 absolute top-4 right-4`}
+      className="p-2 rounded-full hover:bg-gray-400 hover:text-gray-900 transition-all duration-300 fixed bottom-8 right-8 z-10"
       onClick={toggleDarkMode}
     >
-      {darkMode ? "Light" : "Dark"} Mode
+      {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
     </button>
   );
 };
