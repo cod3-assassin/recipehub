@@ -2,7 +2,7 @@ import React from "react";
 import RecipeList from "./RecipeList";
 import SearchBar from "./SearchBar";
 
-const RecipePage = ({ recipes, handleSearch }) => {
+const RecipePage = ({ recipes, handleSearch, darkMode }) => {
   return (
     <div className="p-4 flex flex-col items-center justify-center">
       <h1 className="text-6xl font-bold mb-8">
@@ -13,7 +13,7 @@ const RecipePage = ({ recipes, handleSearch }) => {
       <h2 className="text-2xl font-semibold my-6">
         Discover Delicious Recipes
       </h2>
-      <RecipeList recipes={recipes} />
+      <RecipeList recipes={recipes} darkMode={darkMode} />
     </div>
   );
 };

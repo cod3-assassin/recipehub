@@ -1,11 +1,11 @@
 import React from "react";
 import RecipeCard from "./RecipeCard";
 
-const RecipeList = ({ recipes }) => {
+const RecipeList = ({ recipes, darkMode }) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+    <div className="grid gap-4 p-4 w-full">
       {recipes.map((recipe) => (
-        <RecipeCard key={recipe.idMeal} recipe={recipe} />
+        <RecipeCard key={recipe.idMeal} recipe={recipe} darkMode={darkMode} />
       ))}
     </div>
   );

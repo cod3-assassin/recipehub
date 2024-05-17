@@ -87,6 +87,7 @@ const RecipeApp = () => {
           recipesPerPage={recipesPerPage}
           totalRecipes={recipes.length}
           paginate={paginate}
+          darkMode={darkMode}
         />
       </div>
     </div>
