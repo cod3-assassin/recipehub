@@ -5,7 +5,7 @@ const SharingRecipe = ({ recipe }) => {
   // Function to handle sharing
   const handleShare = () => {
     // Construct the text message with recipe details for sharing
-    const message = `Check out this recipe: ${recipe.strMeal} - Visit our app page for more details: [Your App Page Link]`;
+    const message = `Check out this recipe: ${recipe.strMeal} - Visit our app page for more details: [https://recipehub-lemon.vercel.app/]`;
 
     // Construct the link for sharing via WhatsApp
     const whatsappMessage = encodeURIComponent(message);
