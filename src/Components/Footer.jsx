@@ -11,19 +11,14 @@ const Footer = ({ darkMode }) => {
   ];
 
   const textColor = darkMode ? "text-white" : "text-gray-800";
+  const footerColor = darkMode ? "bg-zinc-900" : "bg-slate-100";
   const iconColor = darkMode ? "text-white" : "text-gray-600";
 
   return (
-    <footer
-      className={`${
-        darkMode ? "bg-gray-900" : "bg-gray-200"
-      } py-4 ${textColor}`}
-    >
+    <footer className={`${footerColor} ${textColor} py-4`}>
       <div className="container mx-auto flex justify-between items-center flex-wrap">
-        <p className="text-sm font-semibold mb-2 md:mb-0">
-          © 2024 All rights reserved
-        </p>
-        <p className="text-sm font-semibold mb-2 md:mb-0">
+        <p className="text-sm mb-2 md:mb-0">© 2024 All rights reserved</p>
+        <p className="text-sm mb-2 md:mb-0">
           Made with <FaHeart className={`inline ${iconColor}`} /> by
           cod3_assassin
         </p>

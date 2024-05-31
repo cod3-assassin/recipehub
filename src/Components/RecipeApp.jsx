@@ -3,16 +3,15 @@ import axios from "axios";
 import RecipePage from "./RecipePage";
 import FavoritesPage from "./FavoritesPage";
 import DarkModeToggle from "./DarkModeToggle";
-import { FiBook } from "react-icons/fi";
 import Footer from "./Footer";
+import { FiStar } from "react-icons/fi";
 
 const RecipeApp = () => {
   const [recipes, setRecipes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [recipesPerPage] = useState(10);
   const [darkMode, setDarkMode] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
+  const [error, setError] = useState("");
 
   const fetchRecipes = useCallback(async (query) => {
     try {
@@ -20,16 +19,21 @@ const RecipeApp = () => {
         `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
       );
       const meals = response.data.meals || [];
+      if (meals.length === 0) {
+        setError("No recipes found.");
+      } else {
+        setError("");
+      }
       setRecipes(meals);
       localStorage.setItem("recipes", JSON.stringify(meals));
     } catch (error) {
+      setError("Network error. Please try again later.");
       console.error("Error fetching recipes:", error);
     }
   }, []);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    setCurrentPage(1);
     fetchRecipes(query);
   };
 
@@ -41,12 +45,6 @@ const RecipeApp = () => {
       setRecipes([]);
     }
   }, [searchQuery]);
-
-  const indexOfLastRecipe = currentPage * recipesPerPage;
-  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
-  const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -62,7 +60,7 @@ const RecipeApp = () => {
     <div className={darkMode ? "dark" : ""}>
       <div
         className={`min-h-screen ${
-          darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"
+          darkMode ? "bg-zinc-900 text-white" : "bg-slate-100 text-gray-900"
         }`}
       >
         <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
@@ -70,21 +68,20 @@ const RecipeApp = () => {
           className="absolute top-5 right-5 p-2 rounded-full bg-transparent hover:bg-gray-300"
           onClick={() => setShowFavorites(!showFavorites)}
         >
-          <FiBook size={24} color={showFavorites ? "blue" : "gray"} />
+          <FiStar size={24} color={showFavorites ? "blue" : "gray"} />
         </button>
         {showFavorites ? (
           <FavoritesPage darkMode={darkMode} />
         ) : (
-          <RecipePage
-            recipes={currentRecipes}
-            searchQuery={searchQuery}
-            handleSearch={handleSearch}
-            currentPage={currentPage}
-            recipesPerPage={recipesPerPage}
-            totalRecipes={recipes.length}
-            paginate={paginate}
-            darkMode={darkMode}
-          />
+          <>
+            <RecipePage
+              recipes={recipes}
+              searchQuery={searchQuery}
+              handleSearch={handleSearch}
+              darkMode={darkMode}
+              error={error}
+            />
+          </>
         )}
       </div>
       <Footer darkMode={darkMode} />

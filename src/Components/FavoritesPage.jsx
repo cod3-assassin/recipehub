@@ -23,7 +23,7 @@ const FavoritesPage = ({ darkMode }) => {
   return (
     <div
       className={`min-h-screen ${
-        darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"
+        darkMode ? "bg-zinc-900 text-white" : "bg-slate-100 text-gray-900"
       }`}
     >
       <h1 className="text-6xl font-bold mb-8 text-center">My Favorites</h1>
